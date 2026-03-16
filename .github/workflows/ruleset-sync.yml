@@ -8,6 +8,13 @@ on:
       - 'infra/github-rulesets/**'
       - '.github/workflows/ruleset-sync.yml'
       - '.github/workflows/ruleset-sync-reusable.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'infra/github-rulesets/**'
+      - '.github/workflows/ruleset-sync.yml'
+      - '.github/workflows/ruleset-sync-reusable.yml'
   workflow_dispatch:
     inputs:
       mode:
@@ -33,7 +40,7 @@ jobs:
       ruleset_admin_token: ${{ secrets.RULESET_ADMIN_TOKEN }}
 
   apply:
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'apply' }}
+    if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.mode == 'apply') }}
     uses: ./.github/workflows/ruleset-sync-reusable.yml
     with:
       mode: apply

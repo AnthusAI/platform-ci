@@ -90,9 +90,8 @@ The workflow resolves rulesets by `name` + `target`, updates if found, and creat
 - Desired state: `infra/github-rulesets/main-branch-protection.json`
 - Wrapper workflow: `.github/workflows/ruleset-sync.yml`
 
-Bootstrap mode is intentionally conservative:
+Steady-state mode:
 
 - PRs to `main` run `check`.
-- `apply` runs only via manual `workflow_dispatch` (`mode=apply`).
-
-After initial validation, you can enable automatic `apply` on push to `main`.
+- Pushes to `main` run `apply`.
+- Manual `workflow_dispatch` supports both `check` and `apply`.
