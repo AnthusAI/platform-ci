@@ -82,3 +82,17 @@ Caller repos store JSON files under `infra/github-rulesets/` with at least:
 - `rules`
 
 The workflow resolves rulesets by `name` + `target`, updates if found, and creates if missing in `apply` mode.
+
+## This repo's own ruleset management
+
+`platform-ci` also manages its own rulesets using the same reusable workflow:
+
+- Desired state: `infra/github-rulesets/main-branch-protection.json`
+- Wrapper workflow: `.github/workflows/ruleset-sync.yml`
+
+Bootstrap mode is intentionally conservative:
+
+- PRs to `main` run `check`.
+- `apply` runs only via manual `workflow_dispatch` (`mode=apply`).
+
+After initial validation, you can enable automatic `apply` on push to `main`.
