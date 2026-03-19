@@ -2,6 +2,46 @@
 
 Reusable GitHub workflows shared across AnthusAI repositories.
 
+## Reusable semantic-release workflow
+
+Workflow path:
+
+- `.github/workflows/semantic-release-reusable.yml`
+
+It standardizes protected-branch release automation using anthusbot credentials
+and emits release outputs for downstream publish jobs.
+
+### Required caller secret
+
+- `ANTHUSBOT_GH_TOKEN`
+
+Optional caller secret:
+
+- `PYPI_TOKEN` (only needed when semantic-release config/publish path uses it)
+
+### Caller workflow example
+
+```yaml
+jobs:
+  release:
+    uses: AnthusAI/platform-ci/.github/workflows/semantic-release-reusable.yml@main
+    with:
+      python_version: "3.12"
+      checkout_ref: ${{ github.sha }}
+      release_branch: main
+      install_command: 'pip install "python-semantic-release~=10.0"'
+      run_publish: true
+    secrets:
+      anthusbot_gh_token: ${{ secrets.ANTHUSBOT_GH_TOKEN }}
+      semantic_release_pypi_token: ${{ secrets.PYPI_TOKEN }}
+```
+
+Provided outputs:
+
+- `released` (`true`/`false`)
+- `tag` (e.g. `v1.2.3`)
+- `version` (e.g. `1.2.3`)
+
 ## Reusable ruleset sync workflow
 
 Workflow path:
@@ -90,9 +130,8 @@ The workflow resolves rulesets by `name` + `target`, updates if found, and creat
 - Desired state: `infra/github-rulesets/main-branch-protection.json`
 - Wrapper workflow: `.github/workflows/ruleset-sync.yml`
 
-Bootstrap mode is intentionally conservative:
+Steady-state mode:
 
 - PRs to `main` run `check`.
-- `apply` runs only via manual `workflow_dispatch` (`mode=apply`).
-
-After initial validation, you can enable automatic `apply` on push to `main`.
+- Pushes to `main` run `apply`.
+- Manual `workflow_dispatch` supports both `check` and `apply`.

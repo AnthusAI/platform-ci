@@ -1,0 +1,25 @@
+{
+  "id": "ci-12b2541a-e4ba-4504-9955-4a1c600419ac",
+  "title": "Provide reusable semantic-release workflow and branch-protection compatibility",
+  "description": "",
+  "type": "epic",
+  "status": "closed",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "ci-801a59be-1de9-4f34-8f85-a931477673ab",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "bd6d2cd4-fe3b-4d8e-a88a-2f04df7f4017",
+      "author": "derek",
+      "text": "Completed semantic-release standardization scope for platform-ci: reusable workflow delivered, documentation added, and branch-protection bypass IaC aligned for bot-driven release pushes.",
+      "created_at": "2026-03-19T17:31:56.322679827Z"
+    }
+  ],
+  "created_at": "2026-03-19T17:31:32.114327448Z",
+  "updated_at": "2026-03-19T17:31:56.332029974Z",
+  "closed_at": "2026-03-19T17:31:56.332029974Z",
+  "custom": {}
+}

@@ -1,0 +1,139 @@
+{
+  "built_at": "2026-03-19T17:31:59Z",
+  "file_mtimes": {
+    "ci-12b2541a-e4ba-4504-9955-4a1c600419ac.json": 1773941516.325755,
+    "ci-35e41c40-cc5c-4609-8868-d3a9bebf71c2.json": 1773941512.80573,
+    "ci-801a59be-1de9-4f34-8f85-a931477673ab.json": 1773941516.345755,
+    "ci-d7b97364-82b3-432c-aa1a-27886b823ff9.json": 1773941512.79573,
+    "ci-fab0bebd-e23a-4e78-89ed-5fe6af81c4be.json": 1773941512.82573
+  },
+  "issues": [
+    {
+      "assignee": null,
+      "closed_at": "2026-03-19T17:31:56.332029974Z",
+      "comments": [
+        {
+          "author": "derek",
+          "created_at": "2026-03-19T17:31:56.322679827Z",
+          "id": "bd6d2cd4-fe3b-4d8e-a88a-2f04df7f4017",
+          "text": "Completed semantic-release standardization scope for platform-ci: reusable workflow delivered, documentation added, and branch-protection bypass IaC aligned for bot-driven release pushes."
+        }
+      ],
+      "created_at": "2026-03-19T17:31:32.114327448Z",
+      "creator": null,
+      "custom": {},
+      "dependencies": [],
+      "description": "",
+      "id": "ci-12b2541a-e4ba-4504-9955-4a1c600419ac",
+      "labels": [],
+      "parent": "ci-801a59be-1de9-4f34-8f85-a931477673ab",
+      "priority": 1,
+      "status": "closed",
+      "title": "Provide reusable semantic-release workflow and branch-protection compatibility",
+      "type": "epic",
+      "updated_at": "2026-03-19T17:31:56.332029974Z"
+    },
+    {
+      "assignee": null,
+      "closed_at": "2026-03-19T17:31:52.813100018Z",
+      "comments": [
+        {
+          "author": "derek",
+          "created_at": "2026-03-19T17:31:52.804568033Z",
+          "id": "293e18e8-2dc6-49dc-ac45-c6ebe688b00a",
+          "text": "Updated README with reusable semantic-release workflow usage, required secrets, inputs, outputs, and invocation guidance for downstream repositories."
+        }
+      ],
+      "created_at": "2026-03-19T17:31:35.948850509Z",
+      "creator": null,
+      "custom": {},
+      "dependencies": [],
+      "description": "",
+      "id": "ci-35e41c40-cc5c-4609-8868-d3a9bebf71c2",
+      "labels": [],
+      "parent": "ci-12b2541a-e4ba-4504-9955-4a1c600419ac",
+      "priority": 2,
+      "status": "closed",
+      "title": "Document reusable semantic-release workflow usage in README",
+      "type": "task",
+      "updated_at": "2026-03-19T17:31:52.813100018Z"
+    },
+    {
+      "assignee": null,
+      "closed_at": "2026-03-19T17:31:56.348754037Z",
+      "comments": [
+        {
+          "author": "derek",
+          "created_at": "2026-03-19T17:31:56.340101717Z",
+          "id": "51ab6ecb-8e30-48c4-a365-34d0b52a97a5",
+          "text": "Completed initial standardization milestone in platform-ci and validated downstream adoption path for Tactus and Virtuus via the shared release workflow."
+        }
+      ],
+      "created_at": "2026-03-19T17:31:29.248319783Z",
+      "creator": null,
+      "custom": {},
+      "dependencies": [],
+      "description": "",
+      "id": "ci-801a59be-1de9-4f34-8f85-a931477673ab",
+      "labels": [],
+      "parent": null,
+      "priority": 1,
+      "status": "closed",
+      "title": "Standardize semantic release automation for protected main branches",
+      "type": "initiative",
+      "updated_at": "2026-03-19T17:31:56.348754037Z"
+    },
+    {
+      "assignee": null,
+      "closed_at": "2026-03-19T17:31:52.796662711Z",
+      "comments": [
+        {
+          "author": "derek",
+          "created_at": "2026-03-19T17:31:41.411582893Z",
+          "id": "1525d0f1-94bc-4553-b4fa-55d2ebd6543d",
+          "text": "Implemented reusable workflow at .github/workflows/semantic-release-reusable.yml with workflow_call inputs/secrets, bot-authenticated push setup, semantic-release version execution, and release outputs (released/tag/version)."
+        }
+      ],
+      "created_at": "2026-03-19T17:31:35.942822177Z",
+      "creator": null,
+      "custom": {},
+      "dependencies": [],
+      "description": "",
+      "id": "ci-d7b97364-82b3-432c-aa1a-27886b823ff9",
+      "labels": [],
+      "parent": "ci-12b2541a-e4ba-4504-9955-4a1c600419ac",
+      "priority": 1,
+      "status": "closed",
+      "title": "Implement reusable semantic-release workflow for repository consumers",
+      "type": "task",
+      "updated_at": "2026-03-19T17:31:52.796662711Z"
+    },
+    {
+      "assignee": null,
+      "closed_at": "2026-03-19T17:31:52.830152322Z",
+      "comments": [
+        {
+          "author": "derek",
+          "created_at": "2026-03-19T17:31:52.820715667Z",
+          "id": "25a4037c-5ca8-48bb-95cb-30f23f27a02b",
+          "text": "Updated infra/github-rulesets/main-branch-protection.json to include anthusbot bypass actor (ID 266826422) with always bypass mode for release automation compatibility."
+        }
+      ],
+      "created_at": "2026-03-19T17:31:35.954781048Z",
+      "creator": null,
+      "custom": {},
+      "dependencies": [],
+      "description": "",
+      "id": "ci-fab0bebd-e23a-4e78-89ed-5fe6af81c4be",
+      "labels": [],
+      "parent": "ci-12b2541a-e4ba-4504-9955-4a1c600419ac",
+      "priority": 1,
+      "status": "closed",
+      "title": "Update main branch protection IaC to allow anthusbot release bypass",
+      "type": "task",
+      "updated_at": "2026-03-19T17:31:52.830152322Z"
+    }
+  ],
+  "reverse_deps": {},
+  "version": 1
+}

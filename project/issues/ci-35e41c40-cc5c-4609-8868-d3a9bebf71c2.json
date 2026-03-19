@@ -1,0 +1,25 @@
+{
+  "id": "ci-35e41c40-cc5c-4609-8868-d3a9bebf71c2",
+  "title": "Document reusable semantic-release workflow usage in README",
+  "description": "",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "ci-12b2541a-e4ba-4504-9955-4a1c600419ac",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "293e18e8-2dc6-49dc-ac45-c6ebe688b00a",
+      "author": "derek",
+      "text": "Updated README with reusable semantic-release workflow usage, required secrets, inputs, outputs, and invocation guidance for downstream repositories.",
+      "created_at": "2026-03-19T17:31:52.804568033Z"
+    }
+  ],
+  "created_at": "2026-03-19T17:31:35.948850509Z",
+  "updated_at": "2026-03-19T17:31:52.813100018Z",
+  "closed_at": "2026-03-19T17:31:52.813100018Z",
+  "custom": {}
+}
