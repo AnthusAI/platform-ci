@@ -1,0 +1,25 @@
+{
+  "id": "ci-801a59be-1de9-4f34-8f85-a931477673ab",
+  "title": "Standardize semantic release automation for protected main branches",
+  "description": "",
+  "type": "initiative",
+  "status": "closed",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "51ab6ecb-8e30-48c4-a365-34d0b52a97a5",
+      "author": "derek",
+      "text": "Completed initial standardization milestone in platform-ci and validated downstream adoption path for Tactus and Virtuus via the shared release workflow.",
+      "created_at": "2026-03-19T17:31:56.340101717Z"
+    }
+  ],
+  "created_at": "2026-03-19T17:31:29.248319783Z",
+  "updated_at": "2026-03-19T17:31:56.348754037Z",
+  "closed_at": "2026-03-19T17:31:56.348754037Z",
+  "custom": {}
+}
