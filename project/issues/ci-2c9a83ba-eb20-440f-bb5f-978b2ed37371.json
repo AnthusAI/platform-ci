@@ -1,0 +1,31 @@
+{
+  "id": "ci-2c9a83ba-eb20-440f-bb5f-978b2ed37371",
+  "title": "Harden reusable semantic-release auth to enforce anthusbot identity",
+  "description": "",
+  "type": "task",
+  "status": "closed",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "ci-12b2541a-e4ba-4504-9955-4a1c600419ac",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "54407dbe-946e-4788-a2f6-bdbc49f6c5f8",
+      "author": "derek",
+      "text": "Investigating GH013 push rejections in Tactus and Virtuus after migration to reusable semantic-release workflow; implementing auth hardening to ensure semantic-release pushes are attributed to anthusbot bypass actor.",
+      "created_at": "2026-03-20T18:41:10.292365205Z"
+    },
+    {
+      "id": "3ad7f62d-cafa-4d39-bc9d-d4592335043e",
+      "author": "derek",
+      "text": "Updated .github/workflows/semantic-release-reusable.yml to enforce anthusbot credentials during checkout and git push path resolution. Changes: checkout now uses anthusbot token with persisted credentials; release auth step clears any GitHub extraheader and forces both origin fetch/push URLs to x-access-token remote.",
+      "created_at": "2026-03-20T18:41:35.113831094Z"
+    }
+  ],
+  "created_at": "2026-03-20T18:41:06.884394918Z",
+  "updated_at": "2026-03-20T18:41:35.121833236Z",
+  "closed_at": "2026-03-20T18:41:35.121833236Z",
+  "custom": {}
+}

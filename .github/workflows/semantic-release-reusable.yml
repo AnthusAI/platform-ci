@@ -59,7 +59,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: false
+          token: ${{ secrets.anthusbot_gh_token }}
+          persist-credentials: true
           ref: ${{ inputs.checkout_ref != '' && inputs.checkout_ref || github.sha }}
 
       - name: Set up Python
@@ -97,7 +98,10 @@ jobs:
           fi
           git config user.name "anthusbot"
           git config user.email "anthusbot@users.noreply.github.com"
+          # Ensure git never prefers a checkout-provided header tied to github-actions[bot].
+          git config --local --unset-all http.https://github.com/.extraheader || true
           git remote set-url origin "https://x-access-token:${ANTHUSBOT_GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git remote set-url --push origin "https://x-access-token:${ANTHUSBOT_GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
       - name: Semantic Release (version)
         id: semrel_version
