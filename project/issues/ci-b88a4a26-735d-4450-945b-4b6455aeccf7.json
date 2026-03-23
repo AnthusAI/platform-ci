@@ -34,10 +34,34 @@
       "author": "derek.norrbom",
       "text": "Code-scanning finding investigated and addressed. The alert flagged trusted-context checkout of caller-provided ref in the coverage badge reusable workflow. Remediation: removed the checkout_ref input and all caller-controlled ref checkout logic; workflow now always checks out origin/release_branch before generating and committing badge updates.",
       "created_at": "2026-03-23T17:31:14.505412Z"
+    },
+    {
+      "id": "35fd605a-8639-4ea3-951b-f775a8bdd302",
+      "author": "derek.norrbom",
+      "text": "Expanding security investigation to additional code-scanning alerts #3 and #1; will triage each alert and remediate reusable workflow patterns where needed.",
+      "created_at": "2026-03-23T17:58:07.932908Z"
+    },
+    {
+      "id": "f483c6b4-8fd3-4a5e-a42f-a15e15759a94",
+      "author": "derek.norrbom",
+      "text": "Remediated code-scanning alerts #3 and #1 in semantic-release reusable workflow. Removed caller-provided checkout_ref input and now always checkout origin/release_branch in privileged context. Replaced install_command command-string execution with semantic_release_requirement passed as quoted pip argument to eliminate expression-based command execution.",
+      "created_at": "2026-03-23T17:59:42.467744Z"
+    },
+    {
+      "id": "0681a52f-032e-4ae4-9d03-391ec7be429a",
+      "author": "derek.norrbom",
+      "text": "User requested no deprecation compatibility. Proceeding with strict contract only and updating all local caller workflows to match.",
+      "created_at": "2026-03-23T18:00:52.257020Z"
+    },
+    {
+      "id": "6048906a-2c13-4fe5-9d7a-8d31f2879bdb",
+      "author": "derek.norrbom",
+      "text": "Applied strict hardening for semantic-release reusable workflow to address code-scanning alerts: removed checkout_ref and install_command inputs entirely, enforced checkout from origin/release_branch in privileged context, and replaced command-string install with quoted semantic_release_requirement pip argument. Updated README caller example accordingly.",
+      "created_at": "2026-03-23T18:02:08.829126Z"
     }
   ],
   "created_at": "2026-03-23T17:12:10.204588Z",
-  "updated_at": "2026-03-23T17:31:14.505412Z",
+  "updated_at": "2026-03-23T18:02:08.829126Z",
   "closed_at": null,
   "custom": {}
 }
