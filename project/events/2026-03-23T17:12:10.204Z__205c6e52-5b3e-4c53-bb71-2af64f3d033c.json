@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "205c6e52-5b3e-4c53-bb71-2af64f3d033c",
+  "issue_id": "ci-b88a4a26-735d-4450-945b-4b6455aeccf7",
+  "event_type": "issue_created",
+  "occurred_at": "2026-03-23T17:12:10.204Z",
+  "actor_id": "derek.norrbom",
+  "payload": {
+    "assignee": null,
+    "description": "",
+    "issue_type": "chore",
+    "labels": [],
+    "parent": "ci-12b2541a-e4ba-4504-9955-4a1c600419ac",
+    "priority": 1,
+    "status": "open",
+    "title": "Add reusable coverage badge workflow and documentation"
+  }
+}

@@ -3,7 +3,7 @@
   "title": "Provide reusable semantic-release workflow and branch-protection compatibility",
   "description": "",
   "type": "epic",
-  "status": "closed",
+  "status": "open",
   "priority": 1,
   "assignee": null,
   "creator": null,
@@ -19,7 +19,7 @@
     }
   ],
   "created_at": "2026-03-19T17:31:32.114327448Z",
-  "updated_at": "2026-03-19T17:31:56.332029974Z",
-  "closed_at": "2026-03-19T17:31:56.332029974Z",
+  "updated_at": "2026-03-23T17:12:10.194105Z",
+  "closed_at": null,
   "custom": {}
 }
