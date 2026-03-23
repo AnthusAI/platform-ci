@@ -1,0 +1,157 @@
+name: Reusable Coverage Badge
+
+on:
+  workflow_call:
+    inputs:
+      release_branch:
+        description: Branch to push badge updates to
+        required: false
+        type: string
+        default: main
+      source_workflow_run_id:
+        description: Workflow run id that produced the coverage artifact
+        required: true
+        type: string
+      source_artifact_name:
+        description: Artifact name containing the coverage JSON file
+        required: false
+        type: string
+        default: coverage-json
+      coverage_json_path:
+        description: Path to coverage JSON file inside the downloaded artifact
+        required: false
+        type: string
+        default: coverage.json
+      badge_output_path:
+        description: Destination badge file path in the repository
+        required: false
+        type: string
+        default: coverage_badge.json
+      badge_label:
+        description: Shields-style label for the generated badge
+        required: false
+        type: string
+        default: coverage
+      commit_message:
+        description: Commit message used when badge content changes
+        required: false
+        type: string
+        default: "chore: update coverage badge"
+    secrets:
+      anthusbot_gh_token:
+        required: true
+    outputs:
+      updated:
+        description: Whether the workflow committed and pushed a badge change
+        value: ${{ jobs.update-badge.outputs.updated }}
+      coverage_percent:
+        description: Rounded coverage percentage rendered in the badge
+        value: ${{ jobs.update-badge.outputs.coverage_percent }}
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  update-badge:
+    runs-on: ubuntu-latest
+    outputs:
+      updated: ${{ steps.commit.outputs.updated }}
+      coverage_percent: ${{ steps.generate.outputs.coverage_percent }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.anthusbot_gh_token }}
+          persist-credentials: true
+
+      - name: Ensure release branch checkout
+        env:
+          RELEASE_BRANCH: ${{ inputs.release_branch }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "$RELEASE_BRANCH"
+          git checkout -B "$RELEASE_BRANCH" "origin/$RELEASE_BRANCH"
+
+      - name: Configure bot git identity and auth for badge push
+        env:
+          ANTHUSBOT_GH_TOKEN: ${{ secrets.anthusbot_gh_token }}
+        run: |
+          set -euo pipefail
+          if [ -z "${ANTHUSBOT_GH_TOKEN}" ]; then
+            echo "Missing secret: anthusbot_gh_token" >&2
+            exit 1
+          fi
+          git config user.name "anthusbot"
+          git config user.email "anthusbot@users.noreply.github.com"
+          git config --local --unset-all http.https://github.com/.extraheader || true
+          git remote set-url origin "https://x-access-token:${ANTHUSBOT_GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git remote set-url --push origin "https://x-access-token:${ANTHUSBOT_GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ inputs.source_workflow_run_id }}
+          name: ${{ inputs.source_artifact_name }}
+          path: .coverage-artifact
+          github-token: ${{ secrets.anthusbot_gh_token }}
+
+      - name: Generate badge from coverage JSON
+        id: generate
+        env:
+          COVERAGE_JSON_PATH: ${{ inputs.coverage_json_path }}
+          BADGE_OUTPUT_PATH: ${{ inputs.badge_output_path }}
+          BADGE_LABEL: ${{ inputs.badge_label }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          coverage_path = Path(".coverage-artifact") / os.environ["COVERAGE_JSON_PATH"]
+          badge_path = Path(os.environ["BADGE_OUTPUT_PATH"])
+
+          coverage_data = json.loads(coverage_path.read_text(encoding="utf-8"))
+          totals = coverage_data.get("totals") or {}
+          percent = float(totals.get("percent_covered", 0.0))
+
+          if percent >= 95.0:
+              color = "brightgreen"
+          elif percent >= 85.0:
+              color = "green"
+          elif percent >= 70.0:
+              color = "yellow"
+          else:
+              color = "red"
+
+          badge = {
+              "schemaVersion": 1,
+              "label": os.environ["BADGE_LABEL"],
+              "message": f"{percent:.0f}%",
+              "color": color,
+          }
+          badge_path.write_text(json.dumps(badge, indent=2) + "\n", encoding="utf-8")
+          output_path = os.environ["GITHUB_OUTPUT"]
+          with open(output_path, "a", encoding="utf-8") as output_file:
+              output_file.write(f"coverage_percent={percent:.0f}\n")
+          PY
+
+      - name: Commit and push badge update
+        id: commit
+        env:
+          BADGE_OUTPUT_PATH: ${{ inputs.badge_output_path }}
+          RELEASE_BRANCH: ${{ inputs.release_branch }}
+          COMMIT_MESSAGE: ${{ inputs.commit_message }}
+        run: |
+          set -euo pipefail
+          git add "$BADGE_OUTPUT_PATH"
+          if git diff --cached --quiet; then
+            echo "Badge unchanged"
+            echo "updated=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m "$COMMIT_MESSAGE"
+          git push origin "HEAD:$RELEASE_BRANCH"
+          echo "updated=true" >> "$GITHUB_OUTPUT"

@@ -42,6 +42,72 @@ Provided outputs:
 - `tag` (e.g. `v1.2.3`)
 - `version` (e.g. `1.2.3`)
 
+## Reusable coverage badge workflow
+
+Workflow path:
+
+- `.github/workflows/coverage-badge-reusable.yml`
+
+It standardizes coverage badge updates by consuming a coverage JSON artifact from a
+completed CI run and committing badge changes with anthusbot credentials.
+
+### Required caller secret
+
+- `ANTHUSBOT_GH_TOKEN`
+
+### Caller workflow example
+
+```yaml
+name: Coverage Badge
+
+on:
+  workflow_run:
+    workflows: ["Continuous integration"]
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  update-coverage-badge:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_repository.full_name == github.repository && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.actor.login != 'anthusbot' }}
+    uses: AnthusAI/platform-ci/.github/workflows/coverage-badge-reusable.yml@main
+    with:
+      release_branch: "main"
+      source_workflow_run_id: ${{ github.event.workflow_run.id }}
+      source_artifact_name: coverage-json-py312
+      coverage_json_path: coverage.json
+      badge_output_path: coverage_badge.json
+      badge_label: coverage
+      commit_message: "chore: update coverage badge"
+    secrets:
+      anthusbot_gh_token: ${{ secrets.ANTHUSBOT_GH_TOKEN }}
+```
+
+### Expected CI artifact in caller repo
+
+Caller CI should upload a coverage JSON artifact on the run this workflow listens to.
+Example producer step:
+
+```yaml
+- name: Export coverage JSON
+  if: matrix.python-version == '3.12'
+  run: python -m coverage json -o coverage.json
+
+- name: Upload coverage artifact
+  if: matrix.python-version == '3.12'
+  uses: actions/upload-artifact@v4
+  with:
+    name: coverage-json-py312
+    path: coverage.json
+```
+
+Provided outputs:
+
+- `updated` (`true`/`false`)
+- `coverage_percent` (rounded integer percent as string)
+
 ## Reusable ruleset sync workflow
 
 Workflow path:
