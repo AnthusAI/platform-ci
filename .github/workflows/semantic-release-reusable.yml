@@ -18,6 +18,16 @@ on:
         required: false
         type: string
         default: "python-semantic-release~=10.0"
+      working_directory:
+        description: Directory containing semantic-release configuration (for monorepos)
+        required: false
+        type: string
+        default: "."
+      push_changes:
+        description: Whether semantic-release should push release commits/tags to remote
+        required: false
+        type: boolean
+        default: true
       run_publish:
         description: Whether to run semantic-release publish after version
         required: false
@@ -96,15 +106,21 @@ jobs:
 
       - name: Semantic Release (version)
         id: semrel_version
+        working-directory: ${{ inputs.working_directory }}
         env:
           GITHUB_TOKEN: ${{ secrets.anthusbot_gh_token }}
           GH_TOKEN: ${{ secrets.anthusbot_gh_token }}
           PYPI_TOKEN: ${{ secrets.semantic_release_pypi_token }}
+          PUSH_CHANGES: ${{ inputs.push_changes }}
         run: |
           set -euo pipefail
 
           before_tags="$(git tag | sort || true)"
-          semantic-release version
+          if [ "${PUSH_CHANGES}" = "true" ]; then
+            semantic-release version
+          else
+            semantic-release version --no-push --no-vcs-release
+          fi
           after_tags="$(git tag | sort || true)"
 
           new_tag="$(
@@ -115,9 +131,10 @@ jobs:
           )"
 
           if [ -n "$new_tag" ]; then
+            version_without_prefix="${new_tag#${new_tag%%[0-9]*}}"
             echo "released=true" >> "$GITHUB_OUTPUT"
             echo "tag=$new_tag" >> "$GITHUB_OUTPUT"
-            echo "version=${new_tag#v}" >> "$GITHUB_OUTPUT"
+            echo "version=${version_without_prefix}" >> "$GITHUB_OUTPUT"
           else
             echo "released=false" >> "$GITHUB_OUTPUT"
             echo "tag=" >> "$GITHUB_OUTPUT"
@@ -125,7 +142,8 @@ jobs:
           fi
 
       - name: Semantic Release (publish)
-        if: ${{ inputs.run_publish && steps.semrel_version.outputs.released == 'true' }}
+        if: ${{ inputs.run_publish && inputs.push_changes && steps.semrel_version.outputs.released == 'true' }}
+        working-directory: ${{ inputs.working_directory }}
         env:
           GITHUB_TOKEN: ${{ secrets.anthusbot_gh_token }}
           GH_TOKEN: ${{ secrets.anthusbot_gh_token }}
