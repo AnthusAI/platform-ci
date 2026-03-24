@@ -8,21 +8,16 @@ on:
         required: false
         type: string
         default: "3.12"
-      checkout_ref:
-        description: Optional ref/SHA to checkout before running semantic-release
-        required: false
-        type: string
-        default: ""
       release_branch:
         description: Branch semantic-release should push to
         required: false
         type: string
         default: main
-      install_command:
-        description: Command used to install python-semantic-release
+      semantic_release_requirement:
+        description: Requirement specifier passed to pip install for python-semantic-release
         required: false
         type: string
-        default: 'pip install "python-semantic-release~=10.0"'
+        default: "python-semantic-release~=10.0"
       run_publish:
         description: Whether to run semantic-release publish after version
         required: false
@@ -61,7 +56,6 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.anthusbot_gh_token }}
           persist-credentials: true
-          ref: ${{ inputs.checkout_ref != '' && inputs.checkout_ref || github.sha }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -72,20 +66,17 @@ jobs:
       - name: Ensure release branch checkout
         env:
           RELEASE_BRANCH: ${{ inputs.release_branch }}
-          CHECKOUT_REF: ${{ inputs.checkout_ref }}
         run: |
           set -euo pipefail
           git fetch --no-tags origin "$RELEASE_BRANCH"
-          if [ -n "$CHECKOUT_REF" ]; then
-            git checkout -B "$RELEASE_BRANCH" "$CHECKOUT_REF"
-          else
-            git checkout -B "$RELEASE_BRANCH" "origin/$RELEASE_BRANCH"
-          fi
+          git checkout -B "$RELEASE_BRANCH" "origin/$RELEASE_BRANCH"
 
       - name: Install semantic-release
+        env:
+          SEMANTIC_RELEASE_REQUIREMENT: ${{ inputs.semantic_release_requirement }}
         run: |
           python -m pip install --upgrade pip
-          ${{ inputs.install_command }}
+          python -m pip install "${SEMANTIC_RELEASE_REQUIREMENT}"
 
       - name: Configure bot git identity and auth for release push
         env:
