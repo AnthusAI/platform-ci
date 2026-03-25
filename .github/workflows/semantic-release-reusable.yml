@@ -86,7 +86,7 @@ jobs:
           SEMANTIC_RELEASE_REQUIREMENT: ${{ inputs.semantic_release_requirement }}
         run: |
           python -m pip install --upgrade pip
-          python -m pip install "${SEMANTIC_RELEASE_REQUIREMENT}"
+          python -m pip install "${SEMANTIC_RELEASE_REQUIREMENT}" build
 
       - name: Configure bot git identity and auth for release push
         env:
