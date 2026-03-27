@@ -16,10 +16,28 @@
       "author": "derek.norrbom",
       "text": "Implemented fix in .github/workflows/semantic-release-reusable.yml: added explicit twine upload of dist/* for released builds, plus warning when PyPI token is missing. YAML parse check passed locally. Next: run workflow lint, commit, push, and monitor CI.",
       "created_at": "2026-03-27T19:10:48.422847Z"
+    },
+    {
+      "id": "723a54c0-d065-4c2b-8e8f-1d69199aecec",
+      "author": "derek.norrbom",
+      "text": "Adjusted workflow for GitHub Actions compatibility: removed secrets usage from step if-expression and moved token check into shell logic. This avoids workflow validation/startup failures while preserving explicit twine upload behavior.",
+      "created_at": "2026-03-27T19:11:55.910909Z"
+    },
+    {
+      "id": "0b55d55a-11a9-4c8e-9e8b-a44d82f38d89",
+      "author": "derek.norrbom",
+      "text": "Code fix is pushed and PR opened: https://github.com/AnthusAI/platform-ci/pull/10 (base=main). Merge is blocked by ruleset requiring CODEOWNERS review from AnthusAI/corporate-overlords. Waiting for required review before merge to main.",
+      "created_at": "2026-03-27T19:12:50.065917Z"
+    },
+    {
+      "id": "d367e35a-69b8-4236-8283-bb0b8f9fdca6",
+      "author": "derek.norrbom",
+      "text": "Adjusted PR flow to match Git Flow: retargeted PR #10 base from main to develop. Next step is merge into develop, then open promotion PR develop->main.",
+      "created_at": "2026-03-27T19:14:16.443200Z"
     }
   ],
   "created_at": "2026-03-27T19:10:22.069037Z",
-  "updated_at": "2026-03-27T19:10:48.422847Z",
+  "updated_at": "2026-03-27T19:14:16.443200Z",
   "closed_at": null,
   "custom": {}
 }
