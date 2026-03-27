@@ -150,22 +150,22 @@ jobs:
           PYPI_TOKEN: ${{ secrets.semantic_release_pypi_token }}
         run: semantic-release publish
 
-      - name: Warn when PyPI token is missing
-        if: ${{ inputs.run_publish && inputs.push_changes && steps.semrel_version.outputs.released == 'true' && secrets.semantic_release_pypi_token == '' }}
-        run: |
-          echo "::warning::semantic_release_pypi_token is empty; skipping explicit PyPI upload."
-
       - name: Publish built artifacts to PyPI (twine)
-        if: ${{ inputs.run_publish && inputs.push_changes && steps.semrel_version.outputs.released == 'true' && secrets.semantic_release_pypi_token != '' }}
+        if: ${{ inputs.run_publish && inputs.push_changes && steps.semrel_version.outputs.released == 'true' }}
         working-directory: ${{ inputs.working_directory }}
         env:
+          PYPI_TOKEN: ${{ secrets.semantic_release_pypi_token }}
           TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.semantic_release_pypi_token }}
         run: |
           set -euo pipefail
+          if [ -z "${PYPI_TOKEN:-}" ]; then
+            echo "::warning::semantic_release_pypi_token is empty; skipping explicit PyPI upload."
+            exit 0
+          fi
           python -m pip install twine
           if ! compgen -G "dist/*" > /dev/null; then
             echo "Expected build artifacts under dist/, but none were found." >&2
             exit 1
           fi
+          export TWINE_PASSWORD="${PYPI_TOKEN}"
           python -m twine upload --skip-existing dist/*
