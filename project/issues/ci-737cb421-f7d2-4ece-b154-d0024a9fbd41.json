@@ -1,0 +1,25 @@
+{
+  "id": "ci-737cb421-f7d2-4ece-b154-d0024a9fbd41",
+  "title": "Fix PyPI upload regression in semantic-release reusable workflow",
+  "description": "Reusable semantic-release workflow reports success but PyPI artifacts are not uploaded for consuming repos after migration. Reinstate explicit, reliable artifact upload to PyPI in reusable workflow with safe guards and logs.",
+  "type": "bug",
+  "status": "in_progress",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "ci-12b2541a-e4ba-4504-9955-4a1c600419ac",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "b0086e9d-b9fc-4ba3-94a3-16e97083fcd1",
+      "author": "derek.norrbom",
+      "text": "Implemented fix in .github/workflows/semantic-release-reusable.yml: added explicit twine upload of dist/* for released builds, plus warning when PyPI token is missing. YAML parse check passed locally. Next: run workflow lint, commit, push, and monitor CI.",
+      "created_at": "2026-03-27T19:10:48.422847Z"
+    }
+  ],
+  "created_at": "2026-03-27T19:10:22.069037Z",
+  "updated_at": "2026-03-27T19:10:48.422847Z",
+  "closed_at": null,
+  "custom": {}
+}
