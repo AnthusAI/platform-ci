@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "de84eb0e-9492-456a-8cf3-53378f03374c",
+  "issue_id": "ci-737cb421-f7d2-4ece-b154-d0024a9fbd41",
+  "event_type": "issue_created",
+  "occurred_at": "2026-03-27T19:10:22.069Z",
+  "actor_id": "derek.norrbom",
+  "payload": {
+    "assignee": null,
+    "description": "Reusable semantic-release workflow reports success but PyPI artifacts are not uploaded for consuming repos after migration. Reinstate explicit, reliable artifact upload to PyPI in reusable workflow with safe guards and logs.",
+    "issue_type": "bug",
+    "labels": [],
+    "parent": "ci-12b2541a-e4ba-4504-9955-4a1c600419ac",
+    "priority": 1,
+    "status": "open",
+    "title": "Fix PyPI upload regression in semantic-release reusable workflow"
+  }
+}
