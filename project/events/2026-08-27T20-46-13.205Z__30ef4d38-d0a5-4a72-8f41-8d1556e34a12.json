@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "30ef4d38-d0a5-4a72-8f41-8d1556e34a12",
+  "issue_id": "ci-dd89da33-04a0-434f-9555-fe54e4c32fa6",
+  "event_type": "issue_created",
+  "occurred_at": "2026-08-27T20:46:13.205Z",
+  "actor_id": "ryan",
+  "payload": {
+    "assignee": null,
+    "description": "GitPython 3.1.60 removed `Actor.name_email_regex`. python-semantic-release 10.6.1 still reads that attribute on every config load, so `semantic-release version` fails in the reusable workflow.\n\nPlexus main CI succeeded after #615; Release failed with:\n\n`type object 'Actor' has no attribute 'name_email_regex'`\n\nUpstream: python-semantic-release/python-semantic-release#1476\n\nFix: install `GitPython<3.1.60` next to `python-semantic-release` in the reusable workflow until PSR ships a release that does not use the removed attribute.",
+    "issue_type": "bug",
+    "labels": [],
+    "parent": "ci-12b2541a-e4ba-4504-9955-4a1c600419ac",
+    "priority": 0,
+    "status": "open",
+    "title": "Pin GitPython below 3.1.60 so semantic-release can load config"
+  }
+}

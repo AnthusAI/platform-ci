@@ -1,0 +1,26 @@
+{
+  "id": "ci-dd89da33-04a0-434f-9555-fe54e4c32fa6",
+  "title": "Pin GitPython below 3.1.60 so semantic-release can load config",
+  "description": "GitPython 3.1.60 removed `Actor.name_email_regex`. python-semantic-release 10.6.1 still reads that attribute on every config load, so `semantic-release version` fails in the reusable workflow.\n\nPlexus main CI succeeded after #615; Release failed with:\n\n`type object 'Actor' has no attribute 'name_email_regex'`\n\nUpstream: python-semantic-release/python-semantic-release#1476\n\nFix: install `GitPython<3.1.60` next to `python-semantic-release` in the reusable workflow until PSR ships a release that does not use the removed attribute.",
+  "type": "bug",
+  "status": "in_progress",
+  "priority": 0,
+  "assignee": null,
+  "creator": null,
+  "parent": "ci-12b2541a-e4ba-4504-9955-4a1c600419ac",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "1c707745-ef6a-4f05-857d-fb3b358940a5",
+      "author": "ryan",
+      "text": "Plexus Release run https://github.com/AnthusAI/Plexus/actions/runs/33113584141 installed gitpython-3.1.60 via python-semantic-release~=10.0. Last successful Plexus release (1.65.0) had gitpython-3.1.59. Pinning GitPython<3.1.60 in the reusable pip install.",
+      "created_at": "2026-08-27T20:46:28.201597Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-08-27T20:46:13.204943Z",
+  "updated_at": "2026-08-27T20:46:28.201597Z",
+  "closed_at": null,
+  "custom": {}
+}

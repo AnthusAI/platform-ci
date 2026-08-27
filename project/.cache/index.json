@@ -1,13 +1,15 @@
 {
-  "built_at": "2026-03-27T19:10:18Z",
+  "built_at": "2026-08-27T20:46:13Z",
   "file_mtimes": {
-    "ci-12b2541a-e4ba-4504-9955-4a1c600419ac.json": 1774456066.848366,
-    "ci-2c9a83ba-eb20-440f-bb5f-978b2ed37371.json": 1774284545.409721,
-    "ci-35e41c40-cc5c-4609-8868-d3a9bebf71c2.json": 1774284545.410149,
-    "ci-801a59be-1de9-4f34-8f85-a931477673ab.json": 1774284545.410408,
-    "ci-b88a4a26-735d-4450-945b-4b6455aeccf7.json": 1774456066.84868,
-    "ci-d7b97364-82b3-432c-aa1a-27886b823ff9.json": 1774284545.410679,
-    "ci-fab0bebd-e23a-4e78-89ed-5fe6af81c4be.json": 1774284545.410919
+    "ci-12b2541a-e4ba-4504-9955-4a1c600419ac.json": 1787863537.347325,
+    "ci-2c9a83ba-eb20-440f-bb5f-978b2ed37371.json": 1787863537.347432,
+    "ci-35e41c40-cc5c-4609-8868-d3a9bebf71c2.json": 1787863537.347529,
+    "ci-737cb421-f7d2-4ece-b154-d0024a9fbd41.json": 1787863537.347632,
+    "ci-801a59be-1de9-4f34-8f85-a931477673ab.json": 1787863537.347729,
+    "ci-b88a4a26-735d-4450-945b-4b6455aeccf7.json": 1787863537.347853,
+    "ci-d7b97364-82b3-432c-aa1a-27886b823ff9.json": 1787863537.347948,
+    "ci-dd89da33-04a0-434f-9555-fe54e4c32fa6.json": 1787863573.205401,
+    "ci-fab0bebd-e23a-4e78-89ed-5fe6af81c4be.json": 1787863537.348052
   },
   "issues": [
     {
@@ -16,6 +18,7 @@
       "comments": [
         {
           "author": "derek",
+          "comment_type": "default",
           "created_at": "2026-03-19T17:31:56.322679827Z",
           "id": "bd6d2cd4-fe3b-4d8e-a88a-2f04df7f4017",
           "text": "Completed semantic-release standardization scope for platform-ci: reusable workflow delivered, documentation added, and branch-protection bypass IaC aligned for bot-driven release pushes."
@@ -41,12 +44,14 @@
       "comments": [
         {
           "author": "derek",
+          "comment_type": "default",
           "created_at": "2026-03-20T18:41:10.292365205Z",
           "id": "54407dbe-946e-4788-a2f6-bdbc49f6c5f8",
           "text": "Investigating GH013 push rejections in Tactus and Virtuus after migration to reusable semantic-release workflow; implementing auth hardening to ensure semantic-release pushes are attributed to anthusbot bypass actor."
         },
         {
           "author": "derek",
+          "comment_type": "default",
           "created_at": "2026-03-20T18:41:35.113831094Z",
           "id": "3ad7f62d-cafa-4d39-bc9d-d4592335043e",
           "text": "Updated .github/workflows/semantic-release-reusable.yml to enforce anthusbot credentials during checkout and git push path resolution. Changes: checkout now uses anthusbot token with persisted credentials; release auth step clears any GitHub extraheader and forces both origin fetch/push URLs to x-access-token remote."
@@ -72,6 +77,7 @@
       "comments": [
         {
           "author": "derek",
+          "comment_type": "default",
           "created_at": "2026-03-19T17:31:52.804568033Z",
           "id": "293e18e8-2dc6-49dc-ac45-c6ebe688b00a",
           "text": "Updated README with reusable semantic-release workflow usage, required secrets, inputs, outputs, and invocation guidance for downstream repositories."
@@ -93,10 +99,37 @@
     },
     {
       "assignee": null,
+      "closed_at": null,
+      "comments": [
+        {
+          "author": "derek.norrbom",
+          "comment_type": "default",
+          "created_at": "2026-03-27T19:10:48.422847Z",
+          "id": "b0086e9d-b9fc-4ba3-94a3-16e97083fcd1",
+          "text": "Implemented fix in .github/workflows/semantic-release-reusable.yml: added explicit twine upload of dist/* for released builds, plus warning when PyPI token is missing. YAML parse check passed locally. Next: run workflow lint, commit, push, and monitor CI."
+        }
+      ],
+      "created_at": "2026-03-27T19:10:22.069037Z",
+      "creator": null,
+      "custom": {},
+      "dependencies": [],
+      "description": "Reusable semantic-release workflow reports success but PyPI artifacts are not uploaded for consuming repos after migration. Reinstate explicit, reliable artifact upload to PyPI in reusable workflow with safe guards and logs.",
+      "id": "ci-737cb421-f7d2-4ece-b154-d0024a9fbd41",
+      "labels": [],
+      "parent": "ci-12b2541a-e4ba-4504-9955-4a1c600419ac",
+      "priority": 1,
+      "status": "in_progress",
+      "title": "Fix PyPI upload regression in semantic-release reusable workflow",
+      "type": "bug",
+      "updated_at": "2026-03-27T19:10:48.422847Z"
+    },
+    {
+      "assignee": null,
       "closed_at": "2026-03-19T17:31:56.348754037Z",
       "comments": [
         {
           "author": "derek",
+          "comment_type": "default",
           "created_at": "2026-03-19T17:31:56.340101717Z",
           "id": "51ab6ecb-8e30-48c4-a365-34d0b52a97a5",
           "text": "Completed initial standardization milestone in platform-ci and validated downstream adoption path for Tactus and Virtuus via the shared release workflow."
@@ -122,48 +155,56 @@
       "comments": [
         {
           "author": "derek.norrbom",
+          "comment_type": "default",
           "created_at": "2026-03-23T17:12:14.051836Z",
           "id": "51f07708-30da-427a-b2a5-0070c733025d",
           "text": "Starting implementation: add reusable workflow to compute/update coverage badge from a CI artifact and document caller setup in README."
         },
         {
           "author": "derek.norrbom",
+          "comment_type": "default",
           "created_at": "2026-03-23T17:13:55.978499Z",
           "id": "1ba72189-1c2e-467b-8f2a-e9f88595eb46",
           "text": "Implemented reusable coverage badge workflow and docs updates. Added .github/workflows/coverage-badge-reusable.yml (workflow_call) to download a caller CI coverage artifact, generate coverage_badge.json from totals.percent_covered, and push badge updates with anthusbot credentials. Updated README.md with setup, inputs, required secret, and caller examples."
         },
         {
           "author": "derek.norrbom",
+          "comment_type": "default",
           "created_at": "2026-03-23T17:30:07.213474Z",
           "id": "754e4b4b-9a9e-4f65-a67b-407b80595ad6",
           "text": "Investigating code-scanning bot feedback on PR #6: reproduce finding context, assess exploitability/risk, and patch workflow if warranted."
         },
         {
           "author": "derek.norrbom",
+          "comment_type": "default",
           "created_at": "2026-03-23T17:31:14.505412Z",
           "id": "19d828ae-db54-47cb-9a5c-b4e11a09406f",
           "text": "Code-scanning finding investigated and addressed. The alert flagged trusted-context checkout of caller-provided ref in the coverage badge reusable workflow. Remediation: removed the checkout_ref input and all caller-controlled ref checkout logic; workflow now always checks out origin/release_branch before generating and committing badge updates."
         },
         {
           "author": "derek.norrbom",
+          "comment_type": "default",
           "created_at": "2026-03-23T17:58:07.932908Z",
           "id": "35fd605a-8639-4ea3-951b-f775a8bdd302",
           "text": "Expanding security investigation to additional code-scanning alerts #3 and #1; will triage each alert and remediate reusable workflow patterns where needed."
         },
         {
           "author": "derek.norrbom",
+          "comment_type": "default",
           "created_at": "2026-03-23T17:59:42.467744Z",
           "id": "f483c6b4-8fd3-4a5e-a42f-a15e15759a94",
           "text": "Remediated code-scanning alerts #3 and #1 in semantic-release reusable workflow. Removed caller-provided checkout_ref input and now always checkout origin/release_branch in privileged context. Replaced install_command command-string execution with semantic_release_requirement passed as quoted pip argument to eliminate expression-based command execution."
         },
         {
           "author": "derek.norrbom",
+          "comment_type": "default",
           "created_at": "2026-03-23T18:00:52.257020Z",
           "id": "0681a52f-032e-4ae4-9d03-391ec7be429a",
           "text": "User requested no deprecation compatibility. Proceeding with strict contract only and updating all local caller workflows to match."
         },
         {
           "author": "derek.norrbom",
+          "comment_type": "default",
           "created_at": "2026-03-23T18:02:08.829126Z",
           "id": "6048906a-2c13-4fe5-9d7a-8d31f2879bdb",
           "text": "Applied strict hardening for semantic-release reusable workflow to address code-scanning alerts: removed checkout_ref and install_command inputs entirely, enforced checkout from origin/release_branch in privileged context, and replaced command-string install with quoted semantic_release_requirement pip argument. Updated README caller example accordingly."
@@ -189,6 +230,7 @@
       "comments": [
         {
           "author": "derek",
+          "comment_type": "default",
           "created_at": "2026-03-19T17:31:41.411582893Z",
           "id": "1525d0f1-94bc-4553-b4fa-55d2ebd6543d",
           "text": "Implemented reusable workflow at .github/workflows/semantic-release-reusable.yml with workflow_call inputs/secrets, bot-authenticated push setup, semantic-release version execution, and release outputs (released/tag/version)."
@@ -210,10 +252,29 @@
     },
     {
       "assignee": null,
+      "closed_at": null,
+      "comments": [],
+      "created_at": "2026-08-27T20:46:13.204943Z",
+      "creator": null,
+      "custom": {},
+      "dependencies": [],
+      "description": "GitPython 3.1.60 removed `Actor.name_email_regex`. python-semantic-release 10.6.1 still reads that attribute on every config load, so `semantic-release version` fails in the reusable workflow.\n\nPlexus main CI succeeded after #615; Release failed with:\n\n`type object 'Actor' has no attribute 'name_email_regex'`\n\nUpstream: python-semantic-release/python-semantic-release#1476\n\nFix: install `GitPython<3.1.60` next to `python-semantic-release` in the reusable workflow until PSR ships a release that does not use the removed attribute.",
+      "id": "ci-dd89da33-04a0-434f-9555-fe54e4c32fa6",
+      "labels": [],
+      "parent": "ci-12b2541a-e4ba-4504-9955-4a1c600419ac",
+      "priority": 0,
+      "status": "open",
+      "title": "Pin GitPython below 3.1.60 so semantic-release can load config",
+      "type": "bug",
+      "updated_at": "2026-08-27T20:46:13.204943Z"
+    },
+    {
+      "assignee": null,
       "closed_at": "2026-03-19T17:31:52.830152322Z",
       "comments": [
         {
           "author": "derek",
+          "comment_type": "default",
           "created_at": "2026-03-19T17:31:52.820715667Z",
           "id": "25a4037c-5ca8-48bb-95cb-30f23f27a02b",
           "text": "Updated infra/github-rulesets/main-branch-protection.json to include anthusbot bypass actor (ID 266826422) with always bypass mode for release automation compatibility."
